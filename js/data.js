@@ -8,7 +8,7 @@ const DATA = {
       mode: 'mixed',
       duration: { fr: '~2h', en: '~2h', es: '~2h' },
       distance: '~4 km',
-      enigmaCount: 12,
+      enigmaCount: 13,
       badgeCount: 6,
       coords: { lat: 46.037, lng: -71.915 },
       name: { fr: 'Arthabaska & Nature', en: 'Arthabaska & Nature', es: 'Arthabaska y Naturaleza' },
@@ -485,7 +485,7 @@ const DATA = {
               question: { fr: 'Combien de marches pour atteindre la plateforme supérieure ?', en: 'How many steps to reach the top platform?', es: '¿Cuántos peldaños hay para llegar a la plataforma superior?' },
               indice: { fr: 'Comptez soigneusement en montant !', en: 'Count carefully as you climb!', es: '¡Cuenta con cuidado mientras subes!' }
             },
-            { num: 12, lettre: 'L', reponse: 0,
+            { num: 14, lettre: 'N', reponse: 0,
               question: { fr: 'Depuis la plateforme, combien de clochers voyez-vous sur la ligne d\'horizon ?', en: 'From the platform, how many steeples can you see on the skyline?', es: 'Desde la plataforma, ¿cuántos campanarios se ven en el horizonte?' },
               indice: { fr: 'Tournez-vous vers le centre-ville au sud.', en: 'Turn towards downtown to the south.', es: 'Gírate hacia el centro de la ciudad al sur.' }
             }
@@ -819,7 +819,7 @@ const DATA = {
             parking: { fr: '—', en: '—', es: '—' }
           },
           enigmes: [
-            { num: 12, lettre: 'L', reponse: 0,
+            { num: 14, lettre: 'N', reponse: 0,
               question: { fr: 'Sur la fresque, combien de personnages humains principaux peut-on identifier ?', en: 'On the mural, how many main human figures can you identify?', es: '¿Cuántas figuras humanas principales se pueden identificar en el mural?' },
               indice: { fr: 'Comptez uniquement les personnages clairement identifiables.', en: 'Count only clearly identifiable figures.', es: 'Cuenta solo las figuras claramente identificables.' }
             }
