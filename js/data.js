@@ -235,22 +235,22 @@ const DATA = {
       emoji: '🦢',
       color: '#085041',
       colorDark: '#053528',
-      mode: 'walking',
-      duration: { fr: '~1h30', en: '~1h30', es: '~1h30' },
+      mode: 'cycling',
+      duration: { fr: '~1h–2h', en: '~1h–2h', es: '~1h–2h' },
       distance: '5,2 km',
       enigmaCount: 13,
       badgeCount: 5,
       coords: { lat: 46.0688, lng: -71.9771 },
       name: { fr: 'Tour du Réservoir Beaudet', en: 'Beaudet Reservoir Loop', es: 'Vuelta al Embalse Beaudet' },
       subtitle: {
-        fr: 'Boucle complète 5,2 km · Zone importante de Conservation des Oiseaux',
-        en: 'Full 5.2 km loop · Important Bird Conservation Area',
-        es: 'Vuelta completa de 5,2 km · Zona importante de Conservación de Aves'
+        fr: 'Piste cyclable — 5,2 km · À pied, vélo, roller ou trottinette',
+        en: 'Cycling path — 5.2 km · On foot, bike, rollerblades or scooter',
+        es: 'Pista ciclable — 5,2 km · A pie, bici, patines o patinete'
       },
       description: {
-        fr: 'Une boucle de 5,2 km autour du plus beau plan d\'eau de Victoriaville. 269 espèces d\'oiseaux, tour d\'observation, pinède et barrage historique.',
-        en: 'A 5.2 km loop around Victoriaville\'s most beautiful body of water. 269 bird species, observation tower, pine forest and historic dam.',
-        es: 'Una vuelta de 5,2 km alrededor del cuerpo de agua más hermoso de Victoriaville. 269 especies de aves, torre de observación, pinar y represa histórica.'
+        fr: 'Une boucle de 5,2 km sur piste cyclable asphaltée autour du plus beau plan d\'eau de Victoriaville. Accessible à pied, en vélo, en roller ou en trottinette. 269 espèces d\'oiseaux, tour d\'observation, pinède et barrage historique.',
+        en: 'A 5.2 km loop on an paved cycling path around Victoriaville\'s most beautiful body of water. Accessible on foot, by bike, on rollerblades or scooter. 269 bird species, observation tower, pine forest and historic dam.',
+        es: 'Una vuelta de 5,2 km en pista ciclable asfaltada alrededor del cuerpo de agua más hermoso de Victoriaville. Accesible a pie, en bici, en patines o patinete. 269 especies de aves, torre de observación, pinar y represa histórica.'
       },
       badge: { emoji: '🦢', name: { fr: 'L\'Ornithologue du Beaudet', en: 'The Beaudet Ornithologist', es: 'El Ornitólogo de Beaudet' } },
       etapes: [
@@ -266,9 +266,9 @@ const DATA = {
             es: 'Inaugurado en 2013, el pabellón es el corazón del embalse. La Plaza Elliot-Tardif ofrece juegos de agua y módulos para niños. La vuelta se realiza en sentido horario.'
           },
           mission: {
-            fr: 'Observez le pavillon et la Place Elliot-Tardif avant de démarrer en sens horaire.',
-            en: 'Observe the pavilion and Elliot-Tardif Square before starting clockwise.',
-            es: 'Observa el pabellón y la Plaza Elliot-Tardif antes de comenzar en sentido horario.'
+            fr: 'Observez le pavillon et la Place Elliot-Tardif avant de démarrer en sens horaire sur la piste cyclable. À pied, en vélo, roller ou trottinette — tout est permis !',
+            en: 'Observe the pavilion and Elliot-Tardif Square before starting clockwise on the cycling path. On foot, by bike, rollerblades or scooter — all welcome!',
+            es: 'Observa el pabellón y la Plaza Elliot-Tardif antes de comenzar en sentido horario por la pista ciclable. ¡A pie, en bici, patines o patinete — todo es bienvenido!'
           },
           bonus: {
             fr: 'En octobre, jusqu\'à 100 000 oies blanches s\'arrêtent sur ce réservoir lors de leur migration — le plus grand rassemblement au Canada !',

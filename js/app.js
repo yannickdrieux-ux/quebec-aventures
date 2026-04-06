@@ -68,7 +68,7 @@ function renderHome() {
         <div class="proche-sub">${p[p.mode === 'walking' ? 'etapes' : 'etapes'].length} ${t(p.mode === 'walking' ? 'stops' : 'steps')} · ${p.distance} · ${p.duration[lang]}</div>
         <div class="proche-tags">
           ${done ? `<span class="tag tag-done">${t('doneBadge')}</span>` : inProg ? `<span class="tag tag-prog">${t('inProgress')}</span>` : `<span class="tag tag-new">${t('newBadge')}</span>`}
-          <span class="tag tag-mode">${p.mode === 'walking' ? '🚶 ' + t('walking') : '🚗 ' + t('mixed')}</span>
+          <span class="tag tag-mode">${p.mode === 'walking' ? '🚶 ' + t('walking') : p.mode === 'cycling' ? t('cycling') : '🚗 ' + t('mixed')}</span>
         </div>
       </div>
     </div>`;
@@ -98,7 +98,7 @@ function renderTrails() {
         <div class="parcours-sub">${p.subtitle[lang]}</div>
         ${done ? `<span class="status-pill pill-done">${t('doneBadge')}</span>` : inProg ? `<span class="status-pill pill-prog">${t('inProgress')}</span>` : `<span class="status-pill pill-new">${t('newBadge')}</span>`}
         <div class="parcours-chips">
-          <span class="chip">${p.mode === 'walking' ? '🚶 ' + t('walking') : '🚗 ' + t('mixed')}</span>
+          <span class="chip">${p.mode === 'walking' ? '🚶 ' + t('walking') : p.mode === 'cycling' ? t('cycling') : '🚗 ' + t('mixed')}</span>
           <span class="chip">${p.etapes.length} ${t('steps')}</span>
           <span class="chip">${p.distance}</span>
           <span class="chip">${p.duration[lang]}</span>
