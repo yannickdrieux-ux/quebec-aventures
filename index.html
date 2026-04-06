@@ -12,6 +12,10 @@
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="stylesheet" href="css/style.css">
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 <div id="app">
@@ -66,7 +70,7 @@
               <div class="logo-sub" id="logo-sub">Explore · Découvre · Collectionne</div>
             </div>
           </div>
-          <div class="avatar-btn" onclick="switchTab('account')">JF</div>
+          <div class="avatar-btn" id="avatar-btn" onclick="currentUser ? switchTab('account') : openAuthModal()">👤</div>
         </div>
 
         <div class="hero-welcome">
@@ -375,7 +379,7 @@
         </svg>
       </div>
       <div class="cav-wrap"><div class="cav">JF</div><div class="clvl">2</div></div>
-      <div class="acc-name">Jean-François Tremblay</div>
+      <div class="acc-name" id="acc-name">Mon compte</div>
       <div class="acc-sub" id="acc-since">Membre depuis mars 2026 · Victoriaville</div>
       <div class="xp-bar"><div class="xp-fill-acc"></div></div>
       <div class="xp-lbl">870 / 1000 XP pour le niveau 3</div>
@@ -421,7 +425,8 @@
           <div class="srow"><div class="srow-ico si-g">🔔</div><div class="srow-body"><div class="srow-name" id="set-notif">Notifications</div><div class="srow-sub" id="set-notif-sub">Nouveaux parcours et badges</div></div><div class="srow-arr">›</div></div>
           <div class="srow"><div class="srow-ico si-b">📍</div><div class="srow-body"><div class="srow-name" id="set-gps">GPS et localisation</div><div class="srow-sub" id="set-gps-sub">Actif pendant les parcours</div></div><div class="srow-arr">›</div></div>
           <div class="srow" onclick="showLangPicker()"><div class="srow-ico si-a">🌐</div><div class="srow-body"><div class="srow-name" id="set-lang">Langue</div><div class="srow-sub" id="set-lang-sub">Français (Canada)</div></div><div class="srow-arr">›</div></div>
-          <div class="srow" onclick="resetProgress()"><div class="srow-ico si-r">🔄</div><div class="srow-body"><div class="srow-name" id="set-reset">Réinitialiser la progression</div><div class="srow-sub">Effacer toutes les données</div></div><div class="srow-arr">›</div></div>
+          <div class="srow" id="login-row" onclick="openAuthModal()"><div class="srow-ico si-g">🔑</div><div class="srow-body"><div class="srow-name">Se connecter</div><div class="srow-sub">Google · Facebook</div></div><div class="srow-arr">›</div></div>
+          <div class="srow hidden" id="logout-row" onclick="logout()"><div class="srow-ico si-r">🚪</div><div class="srow-body"><div class="srow-name" id="set-logout">Se déconnecter</div><div class="srow-sub" id="logout-sub">Déconnexion de ton compte</div></div><div class="srow-arr">›</div></div>
         </div>
         <div class="version-tag" id="version-tag">Québec Aventures v1.0 · zaventure.ca 🍁</div>
       </div>
@@ -435,11 +440,34 @@
   </div>
 
   <div class="offline-toast" id="offline-toast">Mode hors ligne</div>
+
+  <!-- ══ MODAL AUTH ══ -->
+  <div id="auth-modal" class="hidden" style="position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.7);display:flex;align-items:flex-end;justify-content:center" onclick="if(event.target===this)closeAuthModal()">
+    <div style="background:white;border-radius:24px 24px 0 0;width:100%;max-width:430px;padding:24px 20px 36px">
+      <div style="width:40px;height:4px;background:#DDD;border-radius:2px;margin:0 auto 20px"></div>
+      <div style="text-align:center;margin-bottom:20px">
+        <div style="font-size:36px;margin-bottom:8px">🍁</div>
+        <div style="font-size:20px;font-weight:800;color:#2C1810">Rejoins l'aventure !</div>
+        <div style="font-size:13px;color:#888;margin-top:4px">Synchronise ta progression sur tous tes appareils</div>
+      </div>
+      <button onclick="loginGoogle()" style="width:100%;display:flex;align-items:center;justify-content:center;gap:12px;padding:14px;border-radius:14px;border:2px solid #DDD;background:white;font-size:15px;font-weight:700;color:#2C1810;cursor:pointer;font-family:Outfit,sans-serif;margin-bottom:10px">
+        <svg width="22" height="22" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Continuer avec Google
+      </button>
+      <button onclick="loginFacebook()" style="width:100%;display:flex;align-items:center;justify-content:center;gap:12px;padding:14px;border-radius:14px;border:none;background:#1877F2;font-size:15px;font-weight:700;color:white;cursor:pointer;font-family:Outfit,sans-serif;margin-bottom:16px">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Continuer avec Facebook
+      </button>
+      <div style="text-align:center;font-size:11px;color:#AAA;line-height:1.6">En continuant, tu acceptes nos <span style="color:#0D5C2E;font-weight:700">conditions d'utilisation</span>.<br>Tes données restent privées et sécurisées 🔒</div>
+      <button onclick="closeAuthModal()" style="width:100%;margin-top:14px;padding:12px;border:none;background:#F1EFE8;border-radius:12px;font-size:13px;font-weight:700;color:#888;cursor:pointer;font-family:Outfit,sans-serif">Plus tard</button>
+    </div>
+  </div>
 </div>
 
 <script src="js/i18n.js"></script>
 <script src="js/data.js"></script>
 <script src="js/app.js"></script>
+<script src="js/firebase.js"></script>
 <script>
 // Initialiser langue UI
 (function() {
