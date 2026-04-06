@@ -20,12 +20,7 @@
 <body>
 <div id="app">
 
-  <!-- Status bar -->
-  <div class="status-bar">
-    <span>9:41</span>
-    <span style="font-weight:800;letter-spacing:.5px">QUÉBEC AVENTURES</span>
-    <span>100%</span>
-  </div>
+  <!-- Pas de barre de statut simulée — le téléphone affiche la sienne -->
 
   <!-- Install banner -->
   <div id="install-banner" class="install-banner hidden">
@@ -378,11 +373,11 @@
           <ellipse cx="75" cy="78" rx="12" ry="7" fill="#2D7A3A"/>
         </svg>
       </div>
-      <div class="cav-wrap"><div class="cav">JF</div><div class="clvl">2</div></div>
+      <div class="cav-wrap"><div class="cav" id="acc-avatar-initials">?</div><div class="clvl" id="acc-level">1</div></div>
       <div class="acc-name" id="acc-name">Mon compte</div>
       <div class="acc-sub" id="acc-since">Membre depuis mars 2026 · Victoriaville</div>
-      <div class="xp-bar"><div class="xp-fill-acc"></div></div>
-      <div class="xp-lbl">870 / 1000 XP pour le niveau 3</div>
+      <div class="xp-bar"><div class="xp-fill-acc" id="xp-fill-acc" style="width:0%"></div></div>
+      <div class="xp-lbl" id="xp-lbl-acc">0 / 1000 XP pour le niveau 2</div>
     </div>
 
     <div class="scroll-area">
@@ -398,9 +393,9 @@
         </div>
 
         <div class="sec-title-acc" id="acc-badges-title">Mes badges</div>
-        <div class="badges-row">
-          <div class="badge-mini"><div class="bm-ico">🏛</div><div class="bm-name">L'Historien</div><div class="bm-status">Obtenu</div></div>
-          <div class="badge-mini"><div class="bm-ico">🦢</div><div class="bm-name">L'Ornithologue</div><div class="bm-status">Obtenu</div></div>
+        <div class="badges-row" id="badges-row">
+          <div class="badge-mini lk"><div class="bm-ico">🏛</div><div class="bm-name">L'Historien</div></div>
+          <div class="badge-mini lk"><div class="bm-ico">🦢</div><div class="bm-name">L'Ornithologue</div></div>
           <div class="badge-mini lk"><div class="bm-ico">🏙</div><div class="bm-name">L'Urbaniste</div></div>
           <div class="badge-mini lk"><div class="bm-ico">🍁</div><div class="bm-name">Reine des Bois-Francs</div></div>
         </div>

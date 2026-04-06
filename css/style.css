@@ -16,8 +16,6 @@ body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--te
 #app { display: flex; flex-direction: column; height: 100vh; max-width: 430px; margin: 0 auto; background: var(--bg); position: relative; overflow: hidden; }
 
 /* ── Status bar ── */
-.status-bar { background: var(--f); padding: 10px 20px 8px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
-.status-bar span { color: rgba(255,255,255,.85); font-size: 12px; font-weight: 500; }
 
 /* ── Screens ── */
 .screen { display: flex; flex-direction: column; flex: 1; min-height: 0; }

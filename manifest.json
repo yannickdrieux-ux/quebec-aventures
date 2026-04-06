@@ -1,6 +1,6 @@
 {
   "name": "Québec Aventures",
-  "short_name": "QA",
+  "short_name": "Québec Aventures",
   "description": "Chasse aux trésors géolocalisée au Québec",
   "start_url": "/quebec-aventures/",
   "display": "standalone",

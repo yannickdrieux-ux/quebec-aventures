@@ -95,10 +95,32 @@ async function loadUserData(uid) {
       STATE.userXP = data.xp || 0;
       STATE.userLevel = data.level || 1;
       STATE.userBadges = data.badges || [];
+      renderRealBadges(STATE.userBadges);
     }
   } catch (e) {
     console.error('Load user data error:', e);
   }
+}
+
+// ── Afficher les vrais badges ──
+function renderRealBadges(earnedBadgeIds) {
+  const row = document.getElementById('badges-row');
+  if (!row) return;
+  const allBadges = [
+    { id: 'p1', emoji: '🏛', name: { fr: "L'Historien", en: "The Historian", es: "El Historiador" } },
+    { id: 'p2', emoji: '🦢', name: { fr: "L'Ornithologue", en: "The Ornithologist", es: "El Ornitólogo" } },
+    { id: 'p3', emoji: '🏙', name: { fr: "L'Urbaniste", en: "The Urbanist", es: "El Urbanista" } },
+    { id: 'p4', emoji: '🍁', name: { fr: "Légende du Québec", en: "Quebec Legend", es: "Leyenda de Quebec" } },
+  ];
+  const lang = getLang();
+  row.innerHTML = allBadges.map(b => {
+    const earned = earnedBadgeIds.includes(b.id);
+    return `<div class="badge-mini ${earned ? '' : 'lk'}">
+      <div class="bm-ico">${b.emoji}</div>
+      <div class="bm-name">${b.name[lang]}</div>
+      ${earned ? `<div class="bm-status">Obtenu</div>` : ''}
+    </div>`;
+  }).join('');
 }
 
 // ── Sauvegarder progression ──
@@ -133,37 +155,56 @@ function updateAuthUI(user) {
   const avatar = document.getElementById('avatar-btn');
   const accName = document.getElementById('acc-name');
   const accSince = document.getElementById('acc-since');
-  const accPhoto = document.getElementById('acc-photo');
+  const accInitials = document.getElementById('acc-avatar-initials');
+  const accLevel = document.getElementById('acc-level');
+  const xpFill = document.getElementById('xp-fill-acc');
+  const xpLbl = document.getElementById('xp-lbl-acc');
 
   if (user) {
-    // Avatar initiales ou photo
+    const initials = (user.displayName || 'A').split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2);
+    // Avatar nav
     if (avatar) {
-      const initials = (user.displayName || 'A').split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2);
-      avatar.textContent = user.photoURL ? '' : initials;
       if (user.photoURL) {
         avatar.style.backgroundImage = `url(${user.photoURL})`;
         avatar.style.backgroundSize = 'cover';
         avatar.textContent = '';
+      } else {
+        avatar.textContent = initials;
+        avatar.style.backgroundImage = '';
       }
     }
+    // Avatar compte
+    if (accInitials) accInitials.textContent = initials;
     if (accName) accName.textContent = user.displayName || 'Aventurier';
     if (accSince) {
       const date = user.metadata?.creationTime
         ? new Date(user.metadata.creationTime).toLocaleDateString('fr-CA', {month:'long', year:'numeric'})
-        : '';
+        : 'avril 2026';
       accSince.textContent = `Membre depuis ${date} · Victoriaville`;
     }
-    // Cacher bouton login, montrer logout
-    document.getElementById('auth-modal')?.classList.add('hidden');
+    // XP
+    const xp = STATE.userXP || 0;
+    const level = Math.floor(xp / 250) + 1;
+    const xpInLevel = xp % 250;
+    if (accLevel) accLevel.textContent = level;
+    if (xpFill) xpFill.style.width = (xpInLevel / 250 * 100) + '%';
+    if (xpLbl) xpLbl.textContent = `${xpInLevel} / 250 XP pour le niveau ${level + 1}`;
+    // Afficher logout, cacher login
     document.getElementById('logout-row')?.classList.remove('hidden');
     document.getElementById('login-row')?.classList.add('hidden');
   } else {
     if (avatar) { avatar.textContent = '👤'; avatar.style.backgroundImage = ''; }
+    if (accInitials) accInitials.textContent = '?';
     if (accName) accName.textContent = 'Mon compte';
+    if (accSince) accSince.textContent = 'Connecte-toi pour sauvegarder ta progression';
+    if (accLevel) accLevel.textContent = '1';
+    if (xpFill) xpFill.style.width = '0%';
+    if (xpLbl) xpLbl.textContent = '0 / 250 XP pour le niveau 2';
     document.getElementById('logout-row')?.classList.add('hidden');
     document.getElementById('login-row')?.classList.remove('hidden');
+    // Remettre badges verrouillés
+    renderRealBadges([]);
   }
-  // Rafraîchir stats
   if (typeof renderAccount === 'function') renderAccount();
 }
 
