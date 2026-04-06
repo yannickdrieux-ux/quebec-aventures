@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0D5C2E">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Québec Aventures">
+  <meta name="description" content="Chasse aux trésors géolocalisée au Québec — Explore, Découvre, Collectionne">
+  <title>Québec Aventures</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- Status bar -->
+  <div class="status-bar">
+    <span>9:41</span>
+    <span style="font-weight:800;letter-spacing:.5px">QUÉBEC AVENTURES</span>
+    <span>100%</span>
+  </div>
+
+  <!-- Install banner -->
+  <div id="install-banner" class="install-banner hidden">
+    <div class="install-banner-text">
+      <div class="install-banner-title" id="ib-title">Installer l'app</div>
+      <div class="install-banner-sub" id="ib-sub">Ajoute Québec Aventures à ton écran d'accueil !</div>
+    </div>
+    <button class="install-btn" onclick="installApp()" id="ib-btn">Installer</button>
+    <button class="install-close" onclick="document.getElementById('install-banner').classList.add('hidden')">✕</button>
+  </div>
+
+  <!-- ══ ACCUEIL ══ -->
+  <div id="screen-home" class="screen">
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-toprow">
+          <div class="logo-wrap">
+            <div class="logo-svg-wrap">
+              <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="48" fill="#FDF8EF" stroke="#2C1810" stroke-width="2"/>
+                <path d="M28 20 L26 35 L22 42 L25 50 L30 55 L28 65 L35 72 L45 70 L50 75 L55 70 L65 68 L70 60 L68 50 L72 42 L70 35 L65 28 L55 22 L45 18 Z" fill="#1A4F7A" opacity=".85"/>
+                <text x="42" y="40" font-size="14" fill="white" font-family="serif">⚜</text>
+                <circle cx="38" cy="58" r="6" fill="#C8401A"/><circle cx="38" cy="58" r="3" fill="#FDF8EF"/>
+                <line x1="38" y1="64" x2="38" y2="72" stroke="#C8401A" stroke-width="2" stroke-linecap="round"/>
+                <ellipse cx="68" cy="36" rx="14" ry="5" fill="#8B6914"/>
+                <ellipse cx="68" cy="34" rx="9" ry="7" fill="#A07820"/>
+                <circle cx="68" cy="44" r="8" fill="#F4C17A"/>
+                <circle cx="65" cy="43" r="1.2" fill="#2C1810"/><circle cx="71" cy="43" r="1.2" fill="#2C1810"/>
+                <path d="M65 47 Q68 50 71 47" stroke="#2C1810" stroke-width="1" fill="none" stroke-linecap="round"/>
+                <rect x="60" y="52" width="16" height="14" rx="3" fill="#8B9D5C"/>
+                <rect x="74" y="50" width="10" height="14" rx="3" fill="#2D5A1B"/>
+                <circle cx="54" cy="60" r="7" fill="none" stroke="#A0A0A0" stroke-width="2.5"/>
+                <circle cx="54" cy="60" r="5" fill="rgba(160,210,240,.4)"/>
+                <line x1="59" y1="65" x2="64" y2="70" stroke="#6B4C1A" stroke-width="2.5" stroke-linecap="round"/>
+                <ellipse cx="25" cy="78" rx="12" ry="7" fill="#2D7A3A"/>
+                <ellipse cx="75" cy="78" rx="12" ry="7" fill="#2D7A3A"/>
+                <ellipse cx="50" cy="82" rx="18" ry="6" fill="#3B9044"/>
+              </svg>
+            </div>
+            <div>
+              <div class="logo-name" id="logo-name">Québec Aventures</div>
+              <div class="logo-sub" id="logo-sub">Explore · Découvre · Collectionne</div>
+            </div>
+          </div>
+          <div class="avatar-btn" onclick="switchTab('account')">JF</div>
+        </div>
+
+        <div class="hero-welcome">
+          <div class="mascotte-wrap">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="48" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.12)" stroke-width="1.5"/>
+              <path d="M28 20 L26 35 L22 42 L25 50 L30 55 L28 65 L35 72 L45 70 L50 75 L55 70 L65 68 L70 60 L68 50 L72 42 L70 35 L65 28 L55 22 L45 18 Z" fill="#1A4F7A" opacity=".9"/>
+              <text x="42" y="40" font-size="14" fill="white" font-family="serif">⚜</text>
+              <circle cx="38" cy="58" r="6" fill="#C8401A"/><circle cx="38" cy="58" r="3" fill="white"/>
+              <line x1="38" y1="64" x2="38" y2="72" stroke="#C8401A" stroke-width="2" stroke-linecap="round"/>
+              <ellipse cx="68" cy="36" rx="14" ry="5" fill="#8B6914"/>
+              <ellipse cx="68" cy="34" rx="9" ry="7" fill="#A07820"/>
+              <circle cx="68" cy="44" r="8" fill="#F4C17A"/>
+              <circle cx="65" cy="43" r="1.2" fill="#2C1810"/><circle cx="71" cy="43" r="1.2" fill="#2C1810"/>
+              <path d="M65 47 Q68 50 71 47" stroke="#2C1810" stroke-width="1" fill="none" stroke-linecap="round"/>
+              <rect x="60" y="52" width="16" height="14" rx="3" fill="#8B9D5C"/>
+              <rect x="74" y="50" width="10" height="14" rx="3" fill="#2D5A1B"/>
+              <circle cx="54" cy="60" r="7" fill="none" stroke="#C0C0C0" stroke-width="2.5"/>
+              <circle cx="54" cy="60" r="5" fill="rgba(160,210,240,.3)"/>
+              <line x1="59" y1="65" x2="64" y2="70" stroke="#8B6914" stroke-width="2.5" stroke-linecap="round"/>
+              <ellipse cx="25" cy="78" rx="12" ry="7" fill="#2D7A3A"/>
+              <ellipse cx="75" cy="78" rx="12" ry="7" fill="#2D7A3A"/>
+            </svg>
+          </div>
+          <div>
+            <div class="hw-greet" id="hw-greet">Bonjour, aventurier !</div>
+            <div class="hw-title" id="hw-title">Où vas-tu explorer aujourd'hui ?</div>
+            <div class="hw-sub" id="hw-sub">3 parcours disponibles près de toi</div>
+          </div>
+        </div>
+
+        <div class="stats-strip">
+          <div class="stat-blk"><div class="stat-num" id="stat-trails">0</div><div class="stat-lbl" id="stat-trails-lbl">Parcours faits</div></div>
+          <div class="stat-blk"><div class="stat-num" id="stat-km">0</div><div class="stat-lbl" id="stat-km-lbl">km parcourus</div></div>
+          <div class="stat-blk"><div class="stat-num" id="stat-badges">0</div><div class="stat-lbl" id="stat-badges-lbl">Badges</div></div>
+        </div>
+      </div>
+      <svg viewBox="0 0 390 52" xmlns="http://www.w3.org/2000/svg" style="display:block" class="trees-svg" preserveAspectRatio="none">
+        <rect width="390" height="52" fill="#0D5C2E"/>
+        <polygon points="0,52 0,36 18,17 36,31 54,13 72,27 90,9 108,25 126,15 144,29 162,7 180,23 198,5 216,21 234,11 252,27 270,9 288,23 306,13 324,27 342,11 360,25 378,9 390,17 390,52" fill="#F8F6F0"/>
+        <polygon points="0,52 0,44 28,27 52,41 76,25 104,39 132,29 160,43 188,27 212,37 240,21 264,35 292,19 320,33 348,23 374,37 390,27 390,52" fill="#C8DDB8" opacity=".5"/>
+      </svg>
+    </div>
+
+    <div class="scroll-area">
+      <div class="home-content">
+        <div class="section-row">
+          <div class="section-title" id="home-sec1">Autour de moi</div>
+          <span class="section-link" onclick="switchTab('trails')" id="home-seeall">Voir tout →</span>
+        </div>
+
+        <div class="map-card">
+          <div class="map-grid"></div>
+          <div class="map-road h" style="top:40%"></div>
+          <div class="map-road h" style="top:63%"></div>
+          <div class="map-road v" style="left:34%"></div>
+          <div class="map-road v" style="left:59%"></div>
+          <div class="map-river"></div>
+          <div class="map-pin" style="top:35%;left:30%"><div class="pin-body" style="background:#0D5C2E"><span class="pin-n">P1</span></div></div>
+          <div class="map-pin" style="top:18%;left:72%"><div class="pin-body" style="background:#085041"><span class="pin-n">P2</span></div></div>
+          <div class="map-pin" style="top:55%;left:47%"><div class="pin-body" style="background:#1A4F7A"><span class="pin-n">P3</span></div></div>
+          <div class="gps-ring" id="gps-ring" style="top:48%;left:43%"></div>
+          <div class="gps-pulse" id="gps-dot" style="top:48%;left:43%"></div>
+          <div class="map-label" id="map-lbl">📍 Position GPS</div>
+        </div>
+
+        <div class="section-row" style="margin-top:2px">
+          <div class="section-title" id="home-sec2">Parcours proches</div>
+        </div>
+
+        <div id="home-parcours"></div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <button class="nav-btn active" data-tab="home"><span class="nav-ico">🏠</span><span id="nav-home">Accueil</span><div class="nav-dot"></div></button>
+      <button class="nav-btn" data-tab="trails"><span class="nav-ico">🗺</span><span id="nav-trails">Parcours</span><div class="nav-dot"></div></button>
+      <button class="nav-btn" data-tab="account"><span class="nav-ico">👤</span><span id="nav-account">Mon compte</span><div class="nav-dot"></div></button>
+    </div>
+  </div>
+
+  <!-- ══ PARCOURS ══ -->
+  <div id="screen-trails" class="screen hidden">
+    <div class="trails-hero">
+      <div class="trails-logo-row">
+        <svg class="trails-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="48" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/>
+          <path d="M28 20 L26 35 L22 42 L25 50 L30 55 L28 65 L35 72 L45 70 L50 75 L55 70 L65 68 L70 60 L68 50 L72 42 L70 35 L65 28 L55 22 L45 18 Z" fill="#1A4F7A" opacity=".9"/>
+          <text x="42" y="40" font-size="14" fill="white" font-family="serif">⚜</text>
+          <circle cx="38" cy="58" r="6" fill="#C8401A"/><circle cx="38" cy="58" r="3" fill="white"/>
+          <ellipse cx="68" cy="36" rx="14" ry="5" fill="#8B6914"/>
+          <ellipse cx="68" cy="34" rx="9" ry="7" fill="#A07820"/>
+          <circle cx="68" cy="44" r="8" fill="#F4C17A"/>
+          <rect x="60" y="52" width="16" height="14" rx="3" fill="#8B9D5C"/>
+          <circle cx="54" cy="60" r="7" fill="none" stroke="#C0C0C0" stroke-width="2.5"/>
+          <line x1="59" y1="65" x2="64" y2="70" stroke="#8B6914" stroke-width="2.5" stroke-linecap="round"/>
+          <ellipse cx="25" cy="78" rx="12" ry="7" fill="#2D7A3A"/>
+          <ellipse cx="75" cy="78" rx="12" ry="7" fill="#2D7A3A"/>
+        </svg>
+        <div>
+          <div class="trails-title" id="trails-title">Tous les parcours</div>
+          <div class="trails-sub" id="trails-sub">3 parcours · Victoriaville 🍁</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sélecteur de langue -->
+    <div class="lang-selector">
+      <button class="lang-btn" id="lang-fr" onclick="changeLang('fr')">🇨🇦 Français</button>
+      <button class="lang-btn" id="lang-en" onclick="changeLang('en')">🇬🇧 English</button>
+      <button class="lang-btn" id="lang-es" onclick="changeLang('es')">🇪🇸 Español</button>
+    </div>
+
+    <div class="scroll-area" style="padding-top:10px">
+      <div id="trails-list"></div>
+      <div style="height:16px"></div>
+    </div>
+
+    <div class="bottom-nav">
+      <button class="nav-btn" data-tab="home"><span class="nav-ico">🏠</span><span id="nav-home2">Accueil</span><div class="nav-dot"></div></button>
+      <button class="nav-btn active" data-tab="trails"><span class="nav-ico">🗺</span><span id="nav-trails2">Parcours</span><div class="nav-dot"></div></button>
+      <button class="nav-btn" data-tab="account"><span class="nav-ico">👤</span><span id="nav-account2">Mon compte</span><div class="nav-dot"></div></button>
+    </div>
+  </div>
+
+  <!-- ══ ÉTAPE ══ -->
+  <div id="screen-etape" class="screen hidden">
+    <div class="scroll-area" id="etape-scroll"></div>
+  </div>
+
+  <!-- ══ FIN DE PARCOURS ══ -->
+  <div id="screen-fin" class="screen hidden">
+    <div class="fin-hero" id="fin-hero-bg" style="background:#0D5C2E">
+      <div class="confetti-row">
+        <span class="conf">🎉</span><span class="conf">🍁</span><span class="conf">🏆</span><span class="conf">🍁</span><span class="conf">🎉</span>
+      </div>
+      <div class="fin-title" id="fin-trail-done">Parcours complété !</div>
+      <div class="fin-sub" id="fin-trail-name"></div>
+      <div class="badge-wrap">
+        <div class="badge-ring">
+          <div class="badge-inner">
+            <div class="badge-emoji-big" id="fin-emoji">🏛</div>
+            <div class="badge-name-text" id="fin-badge-name"></div>
+          </div>
+        </div>
+        <div class="badge-new-pill" id="fin-new-pill">NOUVEAU !</div>
+      </div>
+      <div class="fin-stats">
+        <div class="fin-stat"><div class="fin-stat-v" id="fin-enigmas">0</div><div class="fin-stat-l" id="fin-enigmas-lbl">énigmes</div></div>
+        <div class="fin-stat"><div class="fin-stat-v" id="fin-km">0</div><div class="fin-stat-l" id="fin-km-lbl">km</div></div>
+        <div class="fin-stat"><div class="fin-stat-v">+250</div><div class="fin-stat-l">XP</div></div>
+      </div>
+      <div class="xp-bar-wrap-fin">
+        <div>⚡</div>
+        <div style="flex:1">
+          <div style="font-size:11px;font-weight:700;color:white;margin-bottom:4px" id="xp-label">+250 XP · Niveau 2 → 3</div>
+          <div class="xp-track"><div class="xp-fill"></div></div>
+          <div style="font-size:10px;color:rgba(255,255,255,.5);margin-top:3px" id="xp-sub">870 / 1000 XP</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Onglets -->
+    <div class="fin-tabs">
+      <button class="fin-tab tab-active tab-green" id="tab-rewards" onclick="switchFinTab('rewards')">
+        <span>🏆</span> <span id="tab-rewards-txt">Récompenses</span>
+      </button>
+      <button class="fin-tab" id="tab-comments" onclick="switchFinTab('comments')">
+        <span>💬</span> <span id="tab-comments-txt">Commentaires</span>
+        <div class="notif-badge">12</div>
+      </button>
+    </div>
+
+    <!-- Récompenses -->
+    <div id="fin-rewards" class="scroll-area">
+      <div class="recomp-body">
+        <div class="sec-title-acc" id="fin-unlocks-title">Déblocages obtenus</div>
+        <div class="unlock-grid">
+          <div class="unlock-card featured"><div class="unlock-ico">🏅</div><div class="unlock-title" id="u-badge">Badge collector</div><div class="unlock-sub" id="fin-badge-sub"></div><span class="unlock-pill up-new" id="u-new-lbl">Nouveau !</span></div>
+          <div class="unlock-card"><div class="unlock-ico">⚡</div><div class="unlock-title">+250 XP</div><div class="unlock-sub" id="u-xp-sub">Progression niveau 3</div><span class="unlock-pill up-gold">870 / 1000</span></div>
+          <div class="unlock-card featured"><div class="unlock-ico">🎖</div><div class="unlock-title" id="u-title-lbl">Titre débloqué</div><div class="unlock-sub" id="u-title-sub"></div><span class="unlock-pill up-new" id="u-new2">Nouveau !</span></div>
+          <div class="unlock-card"><div class="unlock-ico">🗺</div><div class="unlock-title" id="u-city-lbl">Ville allumée</div><div class="unlock-sub" id="u-city-sub"></div><span class="unlock-pill up-green" id="u-city-count">+1 ville</span></div>
+        </div>
+
+        <div class="sec-title-acc" id="qc-map-title">Ta carte du Québec</div>
+        <div class="qc-card">
+          <div class="qc-title" id="qc-cities">1 ville explorée sur 17 disponibles</div>
+          <svg viewBox="0 0 300 110" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100px">
+            <rect width="300" height="110" rx="10" fill="#E8F0F8"/>
+            <path d="M60 18 L55 33 L50 43 L48 58 L52 73 L55 83 L60 88 L70 90 L80 86 L90 80 L100 78 L115 76 L130 73 L145 70 L160 68 L175 66 L185 63 L195 58 L200 48 L198 36 L192 26 L180 18 L165 14 L145 12 L120 14 L100 16 L80 16 Z" fill="#B5C8D8" opacity=".6"/>
+            <path d="M90 53 L85 63 L88 76 L95 83 L105 80 L112 73 L110 63 L103 56 Z" fill="#1A4F7A" opacity=".85"/>
+            <circle cx="101" cy="69" r="5" fill="#C8401A"/><circle cx="101" cy="69" r="2.5" fill="white"/>
+            <text x="109" y="67" font-size="8" fill="#2C1810" font-weight="800" font-family="Outfit,sans-serif">Victoriaville ✓</text>
+            <circle cx="80" cy="43" r="3" fill="#CCC"/>
+            <circle cx="140" cy="48" r="3" fill="#CCC"/>
+            <circle cx="170" cy="36" r="3" fill="#CCC"/>
+            <circle cx="60" cy="58" r="3" fill="#CCC"/>
+            <circle cx="155" cy="73" r="3" fill="#CCC"/>
+          </svg>
+        </div>
+
+        <div class="sec-title-acc" id="fin-titles-title">Titres de Terr'aventurier</div>
+        <div class="titre-list">
+          <div class="titre-item new-titre"><div class="ti-ico">🌟</div><div class="ti-body"><div class="ti-name" id="t1-name">Terr'aventurier de Victoriaville</div><div class="ti-cond" id="t1-cond">Compléter un parcours à Victoriaville</div></div><div class="ti-pill tp-new" id="t1-pill">NOUVEAU !</div></div>
+          <div class="titre-item"><div class="ti-ico">🧭</div><div class="ti-body"><div class="ti-name" id="t2-name">Grand Explorateur du Québec</div><div class="ti-cond" id="t2-cond">Explorer 5 villes différentes</div></div><div class="ti-pill tp-lock" id="t2-pill">1 / 5 villes</div></div>
+          <div class="titre-item"><div class="ti-ico">👑</div><div class="ti-body"><div class="ti-name" id="t3-name">Légende du Québec</div><div class="ti-cond" id="t3-cond">Compléter tous les parcours</div></div><div class="ti-pill tp-lock" id="t3-pill">1 / 3</div></div>
+        </div>
+
+        <div class="sec-title-acc" id="share-title">Partager ta victoire</div>
+        <div class="share-card">
+          <div class="share-preview" id="share-preview-bg" style="background:#0D5C2E">
+            <div class="sp-brand">QUÉBEC AVENTURES</div>
+            <div class="sp-emoji" id="sp-emoji">🏛</div>
+            <div class="sp-title" id="sp-title"></div>
+            <div class="sp-sub" id="sp-sub"></div>
+            <div class="sp-hash">#QuébecAventures · #Victoriaville · #Geocaching</div>
+          </div>
+          <div class="share-btns">
+            <button class="share-btn" style="background:#1877F2" onclick="alert(t('gpsNav'))">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              <span>Facebook</span>
+            </button>
+            <button class="share-btn" style="background:#C13584" onclick="alert(t('gpsNav'))">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              <span>Instagram</span>
+            </button>
+            <button class="share-btn" style="background:#D4900A" onclick="alert(t('saveImage'))">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span id="save-lbl">Sauver</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Coordonnées -->
+        <div class="sec-title-acc" id="coords-title">Coordonnées GPS — Cache finale</div>
+        <div class="coords-card">
+          <div class="qc-title" id="coords-formula" style="font-family:monospace">N 46° AB.CDE' — W 71° FGH.IJK'</div>
+          <div class="coords-grid" id="coords-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Commentaires -->
+    <div id="fin-comments" class="scroll-area hidden">
+      <div class="comm-body">
+        <div class="comm-form">
+          <div class="form-label" id="comm-form-lbl">Ton expérience avec ce parcours</div>
+          <div class="stars-row">
+            <span class="star star-on" id="star-1" onclick="setStars(1)">★</span>
+            <span class="star star-on" id="star-2" onclick="setStars(2)">★</span>
+            <span class="star star-on" id="star-3" onclick="setStars(3)">★</span>
+            <span class="star star-on" id="star-4" onclick="setStars(4)">★</span>
+            <span class="star" id="star-5" onclick="setStars(5)">★</span>
+          </div>
+          <textarea id="comment-text" placeholder="Raconte ton aventure..."></textarea>
+          <div class="photos-label" id="photos-lbl">Ajouter des photos (max 3)</div>
+          <div class="photo-slots">
+            <div class="photo-slot" id="photo-slot-1" onclick="togglePhoto(1)"><div style="font-size:20px;color:#CCC">📷</div><div style="font-size:9px;color:#CCC;margin-top:3px">Photo 1</div></div>
+            <div class="photo-slot" id="photo-slot-2" onclick="togglePhoto(2)"><div style="font-size:20px;color:#CCC">📷</div><div style="font-size:9px;color:#CCC;margin-top:3px">Photo 2</div></div>
+            <div class="photo-slot" id="photo-slot-3" onclick="togglePhoto(3)"><div style="font-size:20px;color:#CCC">📷</div><div style="font-size:9px;color:#CCC;margin-top:3px">Photo 3</div></div>
+          </div>
+          <button class="publish-btn" id="publish-btn" onclick="publierComment()">Publier mon commentaire</button>
+        </div>
+        <div style="font-size:13px;font-weight:700;color:#2C1810;margin-bottom:10px" id="comm-count">12 commentaires</div>
+        <div class="comm-item">
+          <div class="ci-top">
+            <div class="ci-avatar" style="background:#EAF3DE;color:#1A6B3A">ML</div>
+            <div class="ci-info"><div class="ci-name">Marie-Lise Bouchard</div><div class="ci-date">Il y a 2 jours · Victoriaville</div></div>
+            <div class="ci-stars-row"><span class="ci-star">★</span><span class="ci-star">★</span><span class="ci-star">★</span><span class="ci-star">★</span><span class="ci-star">★</span></div>
+          </div>
+          <div class="ci-text">Superbe parcours en famille ! Les enfants ont adoré les énigmes au Musée Laurier. La vue depuis le Mont Arthabaska valait vraiment le détour !</div>
+          <div class="ci-photos"><div class="ci-photo" style="background:#EAF3DE">🏛</div><div class="ci-photo" style="background:#E0EEF8">🌲</div><div class="ci-photo" style="background:#FEF3CD">🦢</div></div>
+          <div class="ci-like"><button class="like-btn liked" onclick="toggleLike(this)">❤️ 14 personnes ont aimé</button></div>
+        </div>
+        <div class="comm-item">
+          <div class="ci-top">
+            <div class="ci-avatar" style="background:#E0EEF8;color:#1A4F7A">PT</div>
+            <div class="ci-info"><div class="ci-name">Pierre-Thomas Lavoie</div><div class="ci-date">Il y a 5 jours · Trois-Rivières</div></div>
+            <div class="ci-stars-row"><span class="ci-star">★</span><span class="ci-star">★</span><span class="ci-star">★</span><span class="ci-star">★</span><span class="ci-star" style="color:#EEE">★</span></div>
+          </div>
+          <div class="ci-text">On a fait ça avec mes parents de 70 ans et ils ont adoré ! Le rythme est parfait, les durées sont réalistes.</div>
+          <div class="ci-photos"><div class="ci-photo" style="background:#E0EEF8">🌊</div></div>
+          <div class="ci-like"><button class="like-btn" onclick="toggleLike(this)">🤍 8 personnes ont aimé</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MON COMPTE ══ -->
+  <div id="screen-account" class="screen hidden">
+    <div class="account-hero" style="background:#2C1810">
+      <div class="acc-logo">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="48" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.2)" stroke-width="2"/>
+          <path d="M28 20 L26 35 L22 42 L25 50 L30 55 L28 65 L35 72 L45 70 L50 75 L55 70 L65 68 L70 60 L68 50 L72 42 L70 35 L65 28 L55 22 L45 18 Z" fill="#1A4F7A" opacity=".9"/>
+          <text x="42" y="40" font-size="14" fill="white" font-family="serif">⚜</text>
+          <circle cx="38" cy="58" r="6" fill="#C8401A"/><circle cx="38" cy="58" r="3" fill="white"/>
+          <ellipse cx="68" cy="36" rx="14" ry="5" fill="#8B6914"/>
+          <ellipse cx="68" cy="34" rx="9" ry="7" fill="#A07820"/>
+          <circle cx="68" cy="44" r="8" fill="#F4C17A"/>
+          <rect x="60" y="52" width="16" height="14" rx="3" fill="#8B9D5C"/>
+          <circle cx="54" cy="60" r="7" fill="none" stroke="#C0C0C0" stroke-width="2.5"/>
+          <line x1="59" y1="65" x2="64" y2="70" stroke="#8B6914" stroke-width="2.5" stroke-linecap="round"/>
+          <ellipse cx="25" cy="78" rx="12" ry="7" fill="#2D7A3A"/>
+          <ellipse cx="75" cy="78" rx="12" ry="7" fill="#2D7A3A"/>
+        </svg>
+      </div>
+      <div class="cav-wrap"><div class="cav">JF</div><div class="clvl">2</div></div>
+      <div class="acc-name">Jean-François Tremblay</div>
+      <div class="acc-sub" id="acc-since">Membre depuis mars 2026 · Victoriaville</div>
+      <div class="xp-bar"><div class="xp-fill-acc"></div></div>
+      <div class="xp-lbl">870 / 1000 XP pour le niveau 3</div>
+    </div>
+
+    <div class="scroll-area">
+      <div class="acc-body">
+        <div class="sec-title-acc" id="acc-stats-title">Mes statistiques</div>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-card-ico">🗺</div><div class="stat-card-v" id="acc-trails">0</div><div class="stat-card-l" id="acc-trails-lbl">Parcours complétés</div></div>
+          <div class="stat-card"><div class="stat-card-ico">🥾</div><div class="stat-card-v" id="acc-km">0</div><div class="stat-card-l" id="acc-km-lbl">km parcourus</div></div>
+          <div class="stat-card"><div class="stat-card-ico">🔍</div><div class="stat-card-v" id="acc-enigmas">0</div><div class="stat-card-l" id="acc-enigmas-lbl">Énigmes résolues</div></div>
+          <div class="stat-card"><div class="stat-card-ico">🏅</div><div class="stat-card-v" id="acc-badges">0</div><div class="stat-card-l" id="acc-badges-lbl">Badges obtenus</div></div>
+          <div class="stat-card"><div class="stat-card-ico">📦</div><div class="stat-card-v">0</div><div class="stat-card-l" id="acc-caches-lbl">Caches trouvées</div></div>
+          <div class="stat-card"><div class="stat-card-ico">🏙</div><div class="stat-card-v">1</div><div class="stat-card-l" id="acc-cities-lbl">Ville explorée</div></div>
+        </div>
+
+        <div class="sec-title-acc" id="acc-badges-title">Mes badges</div>
+        <div class="badges-row">
+          <div class="badge-mini"><div class="bm-ico">🏛</div><div class="bm-name">L'Historien</div><div class="bm-status">Obtenu</div></div>
+          <div class="badge-mini"><div class="bm-ico">🦢</div><div class="bm-name">L'Ornithologue</div><div class="bm-status">Obtenu</div></div>
+          <div class="badge-mini lk"><div class="bm-ico">🏙</div><div class="bm-name">L'Urbaniste</div></div>
+          <div class="badge-mini lk"><div class="bm-ico">🍁</div><div class="bm-name">Reine des Bois-Francs</div></div>
+        </div>
+
+        <div class="sec-title-acc" id="acc-howto-title">Comment jouer ?</div>
+        <div class="tuto-box">
+          <div class="tuto-hd">
+            <div class="tuto-hd-t" id="guide-title">Guide du Terr'aventurier</div>
+            <div class="tuto-hd-b">5</div>
+          </div>
+          <div class="tuto-inner">
+            <div class="tuto-step"><div class="tuto-num">1</div><div><div class="tuto-t" id="s1t">Choisissez un parcours</div><div class="tuto-d" id="s1d">Sélectionnez une aventure selon la durée et le mode de déplacement.</div></div></div>
+            <div class="tuto-step"><div class="tuto-num">2</div><div><div class="tuto-t" id="s2t">Stationnez et activez le GPS</div><div class="tuto-d" id="s2d">Garez-vous au point de départ. Votre position s'affiche en temps réel.</div></div></div>
+            <div class="tuto-step"><div class="tuto-num">3</div><div><div class="tuto-t" id="s3t">Résolvez les énigmes</div><div class="tuto-d" id="s3d">À chaque étape, lisez l'histoire et trouvez les indices.</div></div></div>
+            <div class="tuto-step"><div class="tuto-num">4</div><div><div class="tuto-t" id="s4t">Suivez les transitions</div><div class="tuto-d" id="s4d">L'app vous indique si vous marchez ou reprenez la voiture.</div></div></div>
+            <div class="tuto-step"><div class="tuto-num">5</div><div><div class="tuto-t" id="s5t">Trouvez la cache secrète !</div><div class="tuto-d" id="s5d">Reconstituez les coordonnées GPS et trouvez la boîte avec votre badge !</div></div></div>
+          </div>
+        </div>
+
+        <div class="sec-title-acc" id="acc-settings-title">Paramètres</div>
+        <div class="settings-box">
+          <div class="srow"><div class="srow-ico si-g">🔔</div><div class="srow-body"><div class="srow-name" id="set-notif">Notifications</div><div class="srow-sub" id="set-notif-sub">Nouveaux parcours et badges</div></div><div class="srow-arr">›</div></div>
+          <div class="srow"><div class="srow-ico si-b">📍</div><div class="srow-body"><div class="srow-name" id="set-gps">GPS et localisation</div><div class="srow-sub" id="set-gps-sub">Actif pendant les parcours</div></div><div class="srow-arr">›</div></div>
+          <div class="srow" onclick="showLangPicker()"><div class="srow-ico si-a">🌐</div><div class="srow-body"><div class="srow-name" id="set-lang">Langue</div><div class="srow-sub" id="set-lang-sub">Français (Canada)</div></div><div class="srow-arr">›</div></div>
+          <div class="srow" onclick="resetProgress()"><div class="srow-ico si-r">🔄</div><div class="srow-body"><div class="srow-name" id="set-reset">Réinitialiser la progression</div><div class="srow-sub">Effacer toutes les données</div></div><div class="srow-arr">›</div></div>
+        </div>
+        <div class="version-tag" id="version-tag">Québec Aventures v1.0 · zaventure.ca 🍁</div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <button class="nav-btn" data-tab="home"><span class="nav-ico">🏠</span><span id="nav-home3">Accueil</span><div class="nav-dot"></div></button>
+      <button class="nav-btn" data-tab="trails"><span class="nav-ico">🗺</span><span id="nav-trails3">Parcours</span><div class="nav-dot"></div></button>
+      <button class="nav-btn active" data-tab="account"><span class="nav-ico">👤</span><span id="nav-account3">Mon compte</span><div class="nav-dot"></div></button>
+    </div>
+  </div>
+
+  <div class="offline-toast" id="offline-toast">Mode hors ligne</div>
+</div>
+
+<script src="js/i18n.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+// Initialiser langue UI
+(function() {
+  const lang = getLang();
+  const langMap = { fr: 'Français (Canada)', en: 'English (Canada)', es: 'Español' };
+  ['lang-fr','lang-en','lang-es'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) btn.classList.toggle('lang-active', id === 'lang-' + lang);
+  });
+  // Traduire éléments statiques
+  const map = {
+    'logo-sub': 'tagline', 'hw-greet': 'hello', 'hw-title': 'whereToday',
+    'home-sec1': 'nearby', 'home-seeall': 'trails',
+    'nav-home': 'home', 'nav-trails': 'trails', 'nav-account': 'myAccount',
+    'nav-home2': 'home', 'nav-trails2': 'trails', 'nav-account2': 'myAccount',
+    'nav-home3': 'home', 'nav-trails3': 'trails', 'nav-account3': 'myAccount',
+    'trails-sub': null,
+    'tab-rewards-txt': 'rewards', 'tab-comments-txt': 'comments',
+    'fin-trail-done': 'trailCompleted',
+    'fin-new-pill': 'titleNew', 'u-new-lbl': 'titleNew', 'u-new2': 'titleNew',
+    'u-badge': 'collectorBadge', 'u-title-lbl': 'titleUnlocked', 'u-city-lbl': 'cityLit',
+    'share-title': 'shareVictory', 'save-lbl': 'saveImage',
+    'fin-unlocks-title': 'unlocks', 'qc-map-title': 'qcMap',
+    'fin-titles-title': 'titles', 'coords-title': 'finalCoords',
+    'comm-form-lbl': 'yourExperience', 'photos-lbl': 'addPhotos',
+    'publish-btn': 'publish',
+    'guide-title': 'guideTitle',
+    's1t': 'step1t', 's1d': 'step1d', 's2t': 'step2t', 's2d': 'step2d',
+    's3t': 'step3t', 's3d': 'step3d', 's4t': 'step4t', 's4d': 'step4d',
+    's5t': 'step5t', 's5d': 'step5d',
+    'set-notif': 'notifications', 'set-notif-sub': 'notifSub',
+    'set-gps': 'gps', 'set-gps-sub': 'gpsSub',
+    'set-lang': 'language', 'acc-stats-title': 'myStats',
+    'acc-badges-title': 'myBadges', 'acc-howto-title': 'howToPlay',
+    'acc-settings-title': 'settings', 'version-tag': 'version',
+    'acc-trails-lbl': 'trailsDone', 'acc-km-lbl': 'kmWalked',
+    'acc-enigmas-lbl': 'enigmasSolved', 'acc-badges-lbl': 'badgesEarned',
+    'acc-caches-lbl': 'cachesFound', 'acc-cities-lbl': 'citiesExplored',
+    'stat-trails-lbl': 'trailsDone', 'stat-km-lbl': 'kmWalked', 'stat-badges-lbl': 'badges',
+    'map-lbl': 'yourPos', 'home-sec2': 'nearby',
+    'ib-title': 'installApp', 'ib-sub': 'installDesc', 'ib-btn': 'install',
+    'set-lang-sub': null,
+    'trails-title': 'allTrails',
+    'fin-enigmas-lbl': 'enigmas', 'fin-km-lbl': 'km',
+    'acc-since': null,
+  };
+  Object.entries(map).forEach(([id, key]) => {
+    if (!key) return;
+    const el = document.getElementById(id);
+    if (el) el.textContent = t(key);
+  });
+  // Langue sub
+  const langSub = document.getElementById('set-lang-sub');
+  if (langSub) langSub.textContent = langMap[lang] || 'Français';
+  document.getElementById('logo-name').textContent = t('appName');
+  // hw-sub avec nombre de parcours
+  const hwSub = document.getElementById('hw-sub');
+  if (hwSub) hwSub.textContent = DATA.parcours.length + ' ' + t('trailsNear');
+  // xp-label
+  const xpLbl = document.getElementById('xp-label');
+  if (xpLbl) xpLbl.textContent = '+250 XP · ' + t('levelUp') + ' 2 → 3';
+  // trails-sub
+  const tSub = document.getElementById('trails-sub');
+  if (tSub) tSub.textContent = DATA.parcours.length + ' ' + t('trails') + ' · Victoriaville 🍁';
+})();
+
+function showLangPicker() {
+  const lang = getLang();
+  const langs = [{c:'fr',n:'🇨🇦 Français'},{c:'en',n:'🇬🇧 English'},{c:'es',n:'🇪🇸 Español'}];
+  const cur = langs.find(l => l.c === lang)?.n || 'Français';
+  const choice = prompt(`${t('language')}\n\nActuel: ${cur}\n\n1. 🇨🇦 Français\n2. 🇬🇧 English\n3. 🇪🇸 Español\n\nEntrez 1, 2 ou 3:`);
+  if (choice === '1') changeLang('fr');
+  else if (choice === '2') changeLang('en');
+  else if (choice === '3') changeLang('es');
+}
+
+// Rendre le screen-etape scrollable
+document.getElementById('screen-etape').innerHTML = '<div class="scroll-area" id="etape-scroll-inner"></div>';
+const origBuild = window.renderParcoursDetail;
+
+// Override renderParcoursDetail pour injecter dans scroll
+window.renderParcoursDetail = function() {
+  const p = STATE.currentParcours;
+  const lang = getLang();
+  const etape = p.etapes[STATE.currentEtape];
+  document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+  const screen = document.getElementById('screen-etape');
+  screen.classList.remove('hidden');
+  const inner = screen.querySelector('.scroll-area') || screen;
+  inner.innerHTML = buildEtapeHTML(p, etape, lang);
+  inner.scrollTo(0, 0);
+};
+
+window.addEventListener('offline', () => {
+  document.getElementById('offline-toast').style.display = 'block';
+  setTimeout(() => document.getElementById('offline-toast').style.display = 'none', 3000);
+});
+</script>
+</body>
+</html>
