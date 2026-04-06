@@ -8,7 +8,7 @@ const DATA = {
       mode: 'mixed',
       duration: { fr: '~2h', en: '~2h', es: '~2h' },
       distance: '~4 km',
-      enigmaCount: 11,
+      enigmaCount: 12,
       badgeCount: 6,
       coords: { lat: 46.037, lng: -71.915 },
       name: { fr: 'Arthabaska & Nature', en: 'Arthabaska & Nature', es: 'Arthabaska y Naturaleza' },

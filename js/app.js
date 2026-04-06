@@ -398,3 +398,76 @@ function resetProgress() {
     renderAccount();
   }
 }
+
+// ── Bug fixes ──
+
+// 1. Bloquer validation si reponse = 0 (à confirmer sur place)
+const _origValider = window.valider;
+window.valider = function(lettre, bonne) {
+  if (bonne === 0) {
+    const msg = document.getElementById(`msg-${lettre}`);
+    const input = document.getElementById(`ans-${lettre}`);
+    if (msg) { msg.textContent = '📍 À valider sur place — note ta réponse !'; msg.className = 'ans-msg ans-pending'; }
+    if (input) { STATE.digits[lettre] = parseInt(input.value) || 0; saveProgress(); }
+    return;
+  }
+  if (typeof _origValider === 'function') _origValider(lettre, bonne);
+};
+
+// 2. Bouton retour après fin de parcours + option recommencer
+const _origFinirParcours = window.finirParcours;
+window.finirParcours = function() {
+  const p = STATE.currentParcours;
+  STATE.progress[p.id] = { done: true, digits: STATE.digits, lastEtape: p.etapes.length - 1 };
+  saveProgress();
+  renderFin(p);
+};
+
+// Surcharger renderFin pour ajouter bouton retour + recommencer
+const _origRenderFin = window.renderFin;
+window.renderFin = function(p) {
+  _origRenderFin(p);
+  // Ajouter boutons retour et recommencer dans la section récompenses
+  const recompBody = document.querySelector('#fin-rewards .recomp-body');
+  if (recompBody) {
+    const btnWrap = document.createElement('div');
+    btnWrap.style.cssText = 'display:flex;gap:10px;margin-bottom:16px';
+    btnWrap.innerHTML = `
+      <button onclick="switchTab('trails')" style="flex:1;padding:13px;border:2px solid #0D5C2E;border-radius:14px;background:white;color:#0D5C2E;font-size:14px;font-weight:800;cursor:pointer;font-family:Outfit,sans-serif">
+        ← Retour aux parcours
+      </button>
+      <button onclick="recommencerParcours('${p.id}')" style="flex:1;padding:13px;border:none;border-radius:14px;background:#F1EFE8;color:#888;font-size:14px;font-weight:800;cursor:pointer;font-family:Outfit,sans-serif">
+        🔄 Recommencer
+      </button>
+    `;
+    recompBody.insertBefore(btnWrap, recompBody.firstChild);
+  }
+};
+
+// 3. Recommencer depuis le début
+window.recommencerParcours = function(id) {
+  if (!confirm('Recommencer ce parcours depuis le début ?')) return;
+  const p = DATA.parcours.find(p => p.id === id);
+  STATE.progress[id] = {};
+  STATE.digits = {};
+  localStorage.setItem('qa-progress', JSON.stringify(STATE.progress));
+  STATE.currentParcours = p;
+  STATE.currentEtape = 0;
+  renderParcoursDetail();
+};
+
+// 4. Partage FB/Insta avec vrai contenu
+window.partagerFacebook = function(parcoursName) {
+  const msg = encodeURIComponent(`🍁 Je viens de compléter "${parcoursName}" sur Québec Aventures ! #QuébecAventures #Victoriaville`);
+  const url = encodeURIComponent('https://yannickdrieux-ux.github.io/quebec-aventures');
+  window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${msg}`, '_blank');
+};
+
+window.partagerInstagram = function() {
+  alert('📸 Sauvegarde d\'abord l\'image, puis partage-la sur Instagram avec #QuébecAventures !');
+};
+
+// Couleur pending
+const style = document.createElement('style');
+style.textContent = `.ans-pending { color: #92600A; }`;
+document.head.appendChild(style);
